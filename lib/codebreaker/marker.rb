@@ -19,19 +19,19 @@ module Codebreaker
       total_match_count - exact_match_count
     end
 
+    private
+
     def total_match_count
-      count = 0
       secret_code = secret.split('')
-      guess.split('').map do |n|
-        if secret_code.include?(n)
-          secret_code.delete_at(secret_code.index(n))
-          count += 1
-        end
+      guess.split('').inject(0) do |count, number|
+        count + (delete_first(secret_code, number) ? 1 : 0)
       end
-      count
     end
 
-    private
+    def delete_first(code, number)
+      code.delete_at(code.index(number)) if code.index(number)
+    end
+
     def exact_match?(index)
       guess[index] == secret[index]
     end
