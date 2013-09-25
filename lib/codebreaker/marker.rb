@@ -21,6 +21,7 @@ module Codebreaker
       end
     end
 
+    private
     def exact_match?(index)
       guess[index] == secret[index]
     end
